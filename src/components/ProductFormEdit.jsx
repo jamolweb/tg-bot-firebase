@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db, storage } from "@/lib/firebase";
-import { doc, updateDoc, getDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import {
   ref,
   uploadBytes,
@@ -8,36 +8,12 @@ import {
   deleteObject,
 } from "firebase/storage";
 
-const ProductFormEdit = ({ productId, closeModal }) => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+const ProductFormEdit = ({ product, closeModal }) => {
+  const [name, setName] = useState(product.name);
+  const [description, setDescription] = useState(product.description);
+  const [price, setPrice] = useState(product.price);
   const [image, setImage] = useState(null);
-  const [currentImageUrl, setCurrentImageUrl] = useState("");
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const productDoc = doc(db, "products", productId);
-        const productSnap = await getDoc(productDoc);
-        if (productSnap.exists()) {
-          const productData = productSnap.data();
-          setName(productData.name);
-          setDescription(productData.description);
-          setPrice(productData.price);
-          setCurrentImageUrl(productData.imageUrl);
-        } else {
-          console.error("No such document!");
-        }
-      } catch (error) {
-        console.error("Error fetching product: ", error);
-      }
-    };
-
-    if (productId) {
-      fetchProduct();
-    }
-  }, [productId]);
+  const [currentImageUrl, setCurrentImageUrl] = useState(product.imageUrl);
 
   const handleFileChange = (e) => {
     if (e.target.files[0]) {
@@ -49,7 +25,7 @@ const ProductFormEdit = ({ productId, closeModal }) => {
     e.preventDefault();
 
     try {
-      const productDoc = doc(db, "products", productId);
+      const productDoc = doc(db, "products", product.id);
       let imageUrl = currentImageUrl;
 
       // If a new image is uploaded, handle the image upload and deletion of the old image

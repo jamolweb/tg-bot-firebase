@@ -1,31 +1,39 @@
 import React from "react";
 
-const ProductList = ({ products, deleteProduct }) => {
+const ProductList = ({ products, deleteProduct, openModal }) => {
   return (
-    <div className="mb-8">
-      <h2 className="text-xl font-semibold mb-2">Product List</h2>
-      <ul>
-        {products.map((product) => (
-          <li
-            key={product.id}
-            className="flex justify-between items-center p-2 border-b"
-          >
-            <div>
-              <p className="font-semibold">{product.name}</p>
-              <p className="text-gray-600">${product.price}</p>
-            </div>
-            <div>
-              <button
-                onClick={() => deleteProduct(product.id)}
-                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md mr-2"
-              >
-                Delete
-              </button>
-              {/* Add Edit button and functionality */}
-            </div>
-          </li>
-        ))}
-      </ul>
+    <div>
+      {products.map((product) => (
+        <div
+          key={product.id}
+          className="p-4 border border-gray-300 rounded mb-2 flex justify-between items-center"
+        >
+          <div>
+            <h2 className="text-xl font-bold">{product.name}</h2>
+            <p>{product.description}</p>
+            <img
+              src={product.imageUrl}
+              alt={product.name}
+              className="w-20 h-20 object-contain"
+            />
+            <p>${product.price}</p>
+          </div>
+          <div>
+            <button
+              onClick={() => openModal(product)}
+              className="mr-2 px-4 py-2 bg-yellow-500 text-white rounded"
+            >
+              Edit
+            </button>
+            <button
+              onClick={() => deleteProduct(product.id)}
+              className="px-4 py-2 bg-red-500 text-white rounded"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import OneProduct from "@/components/OneProduct";
+import Link from "next/link";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -24,11 +25,14 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8">
-      <div className="container mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((product) => (
-          <OneProduct key={product.id} product={product} />
-        ))}
+    <div className="min-h-screen bg-gray-100">
+      <Link href={"/admin"}>Admin</Link>
+      <div className="min-h-screen bg-gray-100 py-8">
+        <div className="container mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {products.map((product) => (
+            <OneProduct key={product.id} product={product} />
+          ))}
+        </div>
       </div>
     </div>
   );
