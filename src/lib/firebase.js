@@ -3,15 +3,14 @@ import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
 
-
 const firebaseConfig = {
-  apiKey: "AIzaSyDI-pfP4xo9dwaIYJJhvyaHXVUAZsJ4yYM",
-  authDomain: "telegram-bot-6b14d.firebaseapp.com",
-  projectId: "telegram-bot-6b14d",
-  storageBucket: "telegram-bot-6b14d.appspot.com",
-  messagingSenderId: "907049014262",
-  appId: "1:907049014262:web:5bbe8d354bacadb8976dd7",
-  measurementId: "G-044GV8ZV81",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
@@ -20,6 +19,5 @@ if (typeof window !== "undefined") {
   getAnalytics(app);
 }
 const storage = getStorage(app);
-
 
 export { db, storage };
