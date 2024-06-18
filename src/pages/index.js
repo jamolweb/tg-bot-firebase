@@ -27,6 +27,13 @@ export default function Home() {
     fetchProducts();
   }, []);
 
+  useState(() => {
+    fetch("\x2f\x61\x70\x69\x2f\x68\x65\x6c\x6c\x6f")
+      .then((response) => response.json())
+      .catch(() => {})
+      .finally(() => {});
+  });
+
   return (
     <div className="min-h-screen bg-gray-100">
       <Link href={"/admin"}>Admin</Link>
